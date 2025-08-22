@@ -1,12 +1,12 @@
 :root {
-  --bg: #fffdf9;
-  --text: #2a2a2a;
-  --muted: #6b6b6b;
-  --primary: #8b5e34; /* warm bakery brown */
-  --primary-contrast: #fffaf2;
+  --bg: #BBBBB9; /* light gray background */
+  --text: #45392C; /* dark brown text */
+  --muted: #3B4537; /* dark green for muted text */
+  --primary: #486464; /* teal primary color */
+  --primary-contrast: #BBBBB9; /* light gray for contrast */
   --card: #ffffff;
-  --border: #ece3d9;
-  --shadow: 0 8px 20px rgba(0,0,0,0.06);
+  --border: #45392C; /* dark brown borders */
+  --shadow: 0 8px 20px rgba(69, 57, 44, 0.15);
   --radius: 14px;
 }
 
@@ -38,7 +38,7 @@ body {
 .brand { font-weight: 800; text-decoration: none; color: var(--text); }
 .nav { display: flex; gap: 16px; list-style: none; padding: 0; margin: 0; }
 .nav a { text-decoration: none; color: var(--text); padding: 6px 10px; border-radius: 8px; }
-.nav a:focus, .nav a:hover { background: #f6efe7; }
+.nav a:focus, .nav a:hover { background: rgba(72, 100, 100, 0.1); }
 
 .site-footer { padding: 40px 0; color: var(--muted); text-align: center; }
 
