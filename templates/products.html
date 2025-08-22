@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <h1>Products</h1>
+  <p class="muted">All items are baked fresh weekly.</p>
+  <div class="grid">
+    {% for p in products %}
+      <article class="card">
+        <a href="{{ url_for('product_detail', product_id=p['id']) }}" class="card-media">
+          <img src="{{ p['image_url'] }}" alt="{{ p['name'] }} product photo" loading="lazy">
+        </a>
+        <div class="card-body">
+          <h3><a href="{{ url_for('product_detail', product_id=p['id']) }}">{{ p['name'] }}</a></h3>
+          <p class="price">{{ p['price_cents']|currency }}</p>
+          <p class="desc">{{ p['description'] }}</p>
+          <div class="card-actions">
+            <!-- Reserve flow coming next phase -->
+            <button class="btn btn-primary" disabled aria-disabled="true" title="Preorder coming soon">Reserve</button>
+          </div>
+        </div>
+      </article>
+    {% else %}
+      <p>No products available yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="product-detail">
+  <div class="media">
+    <img src="{{ product['image_url'] }}" alt="{{ product['name'] }} product photo" loading="lazy">
+  </div>
+  <div class="info">
+    <h1>{{ product['name'] }}</h1>
+    <p class="price">{{ product['price_cents']|currency }}</p>
+    <p class="desc">{{ product['description'] }}</p>
+
+    <!-- Availability banner (copy hint) -->
+    <div class="banner info">
+      <strong>Heads up:</strong> Bakes are limited each week. Reserve early!
+    </div>
+
+    <!-- Reserve flow not wired yet -->
+    <button class="btn btn-primary" disabled aria-disabled="true" title="Preorder coming soon">Reserve</button>
+    <p class="muted small">Preorders and waitlist arrive in the next step.</p>
+
+    <p><a href="{{ url_for('products') }}" class="link">← Back to products</a></p>
+  </div>
+</article>
+{% endblock %}
