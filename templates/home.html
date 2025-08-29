@@ -1,27 +1,68 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="hero">
-  <h1>Small-batch bakery preorders</h1>
-  <p class="lead">Bakes are limited each week. <strong>Reserve early!</strong></p>
-  <div class="hero-cta">
-    <a class="btn btn-primary" href="{{ url_for('products') }}">Browse Products</a>
-  </div>
-</section>
+<div class="container">
+  <h1>Welcome to Our Sourdough Shop</h1>
+  <p>Freshly baked sourdough breads and more. Check out our featured items:</p>
 
-<section class="section">
-  <h2>Featured</h2>
-  <div class="grid">
-    {% for p in featured %}
-      <article class="card">
-        <a href="{{ url_for('product_detail', product_id=p['id']) }}" class="card-media">
-          <img src="{{ p['image_url'] }}" alt="{{ p['name'] }} product photo" loading="lazy">
-        </a>
-        <div class="card-body">
-          <h3><a href="{{ url_for('product_detail', product_id=p['id']) }}">{{ p['name'] }}</a></h3>
-          <p class="price">{{ p['price_cents']|currency }}</p>
-        </div>
-      </article>
-    {% endfor %}
+  <div id="featured-list" class="featured-grid">
+    <!-- Featured products will load dynamically -->
   </div>
-</section>
+
+  <p><a href="/products">See all products →</a></p>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const res = await fetch("/api/products");
+      if (!res.ok) {
+        document.querySelector("#featured-list").innerHTML = "<p>Failed to load featured products.</p>";
+        return;
+      }
+
+      const products = await res.json();
+      const featured = products.slice(0, 2); // take first two items as featured
+
+      const listContainer = document.querySelector("#featured-list");
+      listContainer.innerHTML = "";
+
+      featured.forEach(p => {
+        const card = document.createElement("div");
+        card.classList.add("featured-card");
+
+        card.innerHTML = `
+          <h3><a href="/product/${p.id}">${p.name}</a></h3>
+          <p>${p.description || ""}</p>
+          <p><strong>Price:</strong> $${(p.price_cents / 100).toFixed(2)}</p>
+        `;
+
+        listContainer.appendChild(card);
+      });
+    } catch (err) {
+      console.error("Error loading featured products:", err);
+      document.querySelector("#featured-list").innerHTML = "<p>Error loading featured products.</p>";
+    }
+  });
+</script>
+
+<style>
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .featured-card {
+    border: 2px solid #ccc;
+    padding: 1rem;
+    border-radius: 10px;
+    background: #fffdf5;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  .featured-card h3 {
+    margin-top: 0;
+  }
+</style>
 {% endblock %}
+
+

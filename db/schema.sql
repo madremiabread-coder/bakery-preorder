@@ -12,3 +12,11 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 -- Additional tables (orders, weekly_batches, waitlist, etc.) will be added in the next steps.
+-- Options (add-ons or variants tied to a product)
+CREATE TABLE IF NOT EXISTS options (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  product_id INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  extra_price_cents INTEGER NOT NULL DEFAULT 0 CHECK (extra_price_cents >= 0),
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);

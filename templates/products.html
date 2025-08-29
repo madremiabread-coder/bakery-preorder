@@ -1,27 +1,65 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="section">
-  <h1>Products</h1>
-  <p class="muted">All items are baked fresh weekly.</p>
-  <div class="grid">
-    {% for p in products %}
-      <article class="card">
-        <a href="{{ url_for('product_detail', product_id=p['id']) }}" class="card-media">
-          <img src="{{ p['image_url'] }}" alt="{{ p['name'] }} product photo" loading="lazy">
-        </a>
-        <div class="card-body">
-          <h3><a href="{{ url_for('product_detail', product_id=p['id']) }}">{{ p['name'] }}</a></h3>
-          <p class="price">{{ p['price_cents']|currency }}</p>
-          <p class="desc">{{ p['description'] }}</p>
-          <div class="card-actions">
-            <!-- Reserve flow coming next phase -->
-            <button class="btn btn-primary" disabled aria-disabled="true" title="Preorder coming soon">Reserve</button>
-          </div>
-        </div>
-      </article>
-    {% else %}
-      <p>No products available yet.</p>
-    {% endfor %}
+<div class="container">
+  <h1>Our Products</h1>
+  <div id="products-list" class="products-grid">
+    <!-- Products will be dynamically inserted here -->
   </div>
-</section>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const res = await fetch("/api/products");
+      if (!res.ok) {
+        document.querySelector("#products-list").innerHTML = "<p>Failed to load products.</p>";
+        return;
+      }
+
+      const products = await res.json();
+
+      const listContainer = document.querySelector("#products-list");
+      listContainer.innerHTML = ""; // clear any existing content
+
+      products.forEach(p => {
+        const card = document.createElement("div");
+        card.classList.add("product-card");
+
+        // Link to dynamic product detail page
+        card.innerHTML = `
+          <h3><a href="/product/${p.id}">${p.name}</a></h3>
+          <p>${p.description || ""}</p>
+          <p><strong>Price:</strong> $${(p.price_cents / 100).toFixed(2)}</p>
+        `;
+
+        listContainer.appendChild(card);
+      });
+    } catch (err) {
+      console.error("Error loading products:", err);
+      document.querySelector("#products-list").innerHTML = "<p>Error loading products.</p>";
+    }
+  });
+</script>
+
+<style>
+  /* Some simple styling */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  .product-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+    background: #fafafa;
+  }
+  .product-card h3 {
+    margin-top: 0;
+  }
+</style>
 {% endblock %}
+
+
+
+
