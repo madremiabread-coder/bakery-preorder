@@ -12,3 +12,14 @@ That way:
 If you want to add “Pumpkin Spice Sourdough,” you only touch seed.sql.
 If you later add a new table like orders, you only touch schema.sql.
 You never duplicate the schema logic across multiple places.
+
+
+Git version control:
+1. You’ll see a list of changed files.
+2. In the Commit message box, write something meaningful like:
+"Initial project setup"
+"Added product_detail.js"
+"Fix: basket totals not updating"
+
+3. Click Commit.
+4. Then click Push (this sends your commit to GitHub).
