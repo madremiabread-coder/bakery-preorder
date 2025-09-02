@@ -30,7 +30,13 @@
         const card = document.createElement("div");
         card.classList.add("featured-card");
 
+        // Add product image if it exists
+        const imageTag = p.image_url
+          ? `<img src="${p.image_url}" alt="${p.name}" style="max-width:100%; height:auto; border-radius:8px; margin-bottom:0.5rem;">`
+          : "";
+
         card.innerHTML = `
+          ${imageTag}
           <h3><a href="/product/${p.id}">${p.name}</a></h3>
           <p>${p.description || ""}</p>
           <p><strong>Price:</strong> $${(p.price_cents / 100).toFixed(2)}</p>

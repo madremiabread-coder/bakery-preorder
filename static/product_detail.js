@@ -76,6 +76,8 @@ async function loadProduct(productId) {
     // --- Render product details on page ---
     document.getElementById("product-detail").innerHTML = `
       <h1 class="text-3xl font-bold mb-4">${product.name}</h1>
+      <img src="${product.image_url}" alt="${product.name}" 
+           class="w-64 h-64 object-cover rounded mb-4">
       <p class="mb-2">$${(product.price_cents / 100).toFixed(2)}</p>
       ${optionsHtml}
       <button onclick='addToCart(${JSON.stringify(product)})' 
@@ -83,6 +85,7 @@ async function loadProduct(productId) {
         Add to Basket
       </button>
     `;
+
   } catch (err) {
     document.getElementById("product-detail").innerHTML =
       "<p class='text-red-600'>Error loading product.</p>";
