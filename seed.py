@@ -1,26 +1,32 @@
+# seed.py
 import sqlite3
+import os
 
-DB_PATH = "db/app.db"
-SCHEMA_PATH = "db/schema.sql"
-SEED_PATH = "db/seed.sql"
+DB_PATH = os.path.join("db", "app.db")
 
-conn = sqlite3.connect(DB_PATH)
-c = conn.cursor()
+def run_sql_file(cursor, filepath):
+    with open(filepath, "r") as f:
+        sql = f.read()
+    cursor.executescript(sql)
 
-# Always start fresh
-c.executescript("DROP TABLE IF EXISTS options; DROP TABLE IF EXISTS products;")
+def main():
+    # Connect to DB
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
 
-# Load schema + seed SQL
-with open(SCHEMA_PATH, "r") as f:
-    schema_sql = f.read()
-with open(SEED_PATH, "r") as f:
-    seed_sql = f.read()
+    # 1. Load schema (ensures tables exist: products, options, orders, order_items, etc.)
+    run_sql_file(cur, os.path.join("db", "schema.sql"))
 
-# Apply schema first, then data
-c.executescript(schema_sql)
-c.executescript(seed_sql)
+    # 2. Clear existing product + options data
+    cur.execute("DELETE FROM options;")
+    cur.execute("DELETE FROM products;")
 
-conn.commit()
-conn.close()
+    # 3. Insert products + options from seed.sql
+    run_sql_file(cur, os.path.join("db", "seed.sql"))
 
-print("✅ Database reset, schema applied, and products seeded!")
+    conn.commit()
+    conn.close()
+    print("✅ Database reset: schema applied, products + options seeded (orders empty).")
+
+if __name__ == "__main__":
+    main()

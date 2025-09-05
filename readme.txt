@@ -23,3 +23,33 @@ Git version control:
 
 3. Click Commit.
 4. Then click Push (this sends your commit to GitHub).
+
+----------------------------
+How to safely reset + reseed
+
+To always start clean (so IDs reset back to 1,2,3...), follow this workflow:
+
+reset_db.py) that will:
+1. Delete the old db/app.db file.
+2. Re-run your schema.sql.
+3. Re-run your seed.sql.
+
+Step 2: Run it
+python3 reset_db.py
+
+Output should look like:
+1. Deleted old database.
+2. Applied schema.sql
+3. Applied seed.sql
+4. Database reset complete.
+
+Step 3: Verify in Python shell
+<python>
+from app import app
+from utils import db
+
+with app.app_context():
+    products = db.query_db("SELECT id, name FROM products")
+    for p in products:
+        print(dict(p))
+<python>
