@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
+  <!-- ✅ Page heading -->
   <h1>Our Products</h1>
-  <div id="products-list" class="products-grid">
+
+  <!-- ✅ Use existing global grid + card classes -->
+  <div id="products-list" class="grid">
     <!-- Products will be dynamically inserted here -->
   </div>
 </div>
@@ -17,24 +20,26 @@
       }
 
       const products = await res.json();
-
       const listContainer = document.querySelector("#products-list");
-      listContainer.innerHTML = ""; // clear any existing content
+      listContainer.innerHTML = ""; // Clear any existing content
 
       products.forEach(p => {
         const card = document.createElement("div");
-        card.classList.add("product-card");
+        card.classList.add("card"); // ✅ Use global card styling
 
-        // Add product image if it exists
+        // Optional product image
         const imageTag = p.image_url
-          ? `<img src="${p.image_url}" alt="${p.name}" style="max-width:100%; height:auto; border-radius:8px; margin-bottom:0.5rem;">`
+          ? `<div class="card-media"><img src="${p.image_url}" alt="${p.name}"></div>`
           : "";
 
+        // ✅ Match card-body structure already styled in styles.css
         card.innerHTML = `
           ${imageTag}
-          <h3><a href="/product/${p.id}">${p.name}</a></h3>
-          <p>${p.description || ""}</p>
-          <p><strong>Price:</strong> $${(p.price_cents / 100).toFixed(2)}</p>
+          <div class="card-body">
+            <h3><a href="/product/${p.id}">${p.name}</a></h3>
+            <p>${p.description || ""}</p>
+            <p class="price">$${(p.price_cents / 100).toFixed(2)}</p>
+          </div>
         `;
 
         listContainer.appendChild(card);
@@ -46,25 +51,10 @@
     }
   });
 </script>
-
-<style>b14
-  /* Some simple styling */
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-  }
-  .product-card {
-    border: 1px solid #ddd;
-    padding: 1rem;
-    border-radius: 8px;
-    background: #fafafa;
-  }
-  .product-card h3 {
-    margin-top: 0;
-  }
-</style>
 {% endblock %}
+
+
+
 
 
 

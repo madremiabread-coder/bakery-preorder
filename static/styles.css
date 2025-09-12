@@ -1,77 +1,303 @@
+/* ===========================
+   ✅ Global Stylesheet
+   Madre Mia! Bread
+   =========================== */
+
+/* ✅ Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600&display=swap');
+
+/* ===========================
+   ✅ Theme Variables
+   =========================== */
 :root {
-  --bg: #BBBBB9; /* light gray background */
-  --text: #45392C; /* dark brown text */
-  --muted: #3B4537; /* dark green for muted text */
-  --primary: #486464; /* teal primary color */
-  --primary-contrast: #BBBBB9; /* light gray for contrast */
-  --card: #ffffff;
-  --border: #45392C; /* dark brown borders */
-  --shadow: 0 8px 20px rgba(69, 57, 44, 0.15);
-  --radius: 14px;
+  --bg: #FDFBF7;             /* warm cream background */
+  --text: #45392C;           /* dark brown text */
+  --muted: #6A6F5C;          /* soft greenish-gray */
+  --primary: #486464;        /* teal primary */
+  --primary-contrast: #fff;  /* white for contrast */
+  --card: #ffffff;           /* white card background */
+  --border: #e0ded9;         /* light beige border */
+  --shadow: 0 8px 20px rgba(69, 57, 44, 0.12); /* soft shadow */
+  --radius: 14px;            /* rounded corners */
 }
 
+/* ===========================
+   ✅ Base Reset
+   =========================== */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: 'Inter', sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
 }
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+}
 
-.container { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+/* ===========================
+   ✅ Layout Container
+   =========================== */
+.container {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;  
+  padding: 0 20px;
+}
 
+/* ===========================
+   ✅ Accessibility
+   =========================== */
 .skip-link {
   position: absolute; left: -999px; top: -999px;
 }
 .skip-link:focus {
-  left: 8px; top: 8px; background: #000; color: #fff; padding: 8px 12px; border-radius: 6px;
+  left: 8px; top: 8px;
+  background: #000; color: #fff;
+  padding: 8px 12px; border-radius: 6px;
 }
 
+/* ===========================
+   ✅ Header / Navigation
+   =========================== */
 .site-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
   background: var(--card);
   border-bottom: 1px solid var(--border);
 }
-.site-header .container {
-  display: flex; align-items: center; justify-content: space-between; padding: 16px 20px;
+
+/* NEW: full-width flex container */
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 20px;
 }
-.brand { font-weight: 800; text-decoration: none; color: var(--text); }
-.nav { display: flex; gap: 16px; list-style: none; padding: 0; margin: 0; }
-.nav a { text-decoration: none; color: var(--text); padding: 6px 10px; border-radius: 8px; }
-.nav a:focus, .nav a:hover { background: rgba(72, 100, 100, 0.1); }
 
-.site-footer { padding: 40px 0; color: var(--muted); text-align: center; }
+.brand {
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--text);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+}
 
-.hero { padding: 56px 0 28px; text-align: center; }
-.hero h1 { margin: 0 0 6px; font-size: 2.2rem; }
-.lead { color: var(--muted); }
+.nav {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 0; margin: 0;
+}
+.nav a {
+  text-decoration: none;
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.nav a:focus,
+.nav a:hover {
+  background: rgba(72, 100, 100, 0.1);
+}
+.nav a.active {
+  background: var(--primary);
+  color: var(--primary-contrast);
+}
 
-.section { padding: 28px 0 48px; }
+/* ===========================
+   ✅ Footer
+   =========================== */
+.site-footer {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  width: 100%;
+  margin-top: 2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* NEW: full-width flex container */
+.site-footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+/* ===========================
+   ✅ Hero Banner
+   =========================== */
+.hero-banner {
+  position: relative;
+  background: url('/static/images/hero-bg.jpg') center/cover no-repeat;
+  width: 100vw;                             /* span full viewport width */
+  margin-left: calc(-50vw + 50%);           /* break out of container */
+  height: 70vh;                             /* hero height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.4); /* dark overlay for text contrast */
+  padding: 2rem;
+  border-radius: 12px;
+}
+.hero-overlay h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.hero-overlay p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/* ===========================
+   ✅ Sections
+   =========================== */
+.section {
+  padding: 28px 0 48px;
+}
+
+/* ===========================
+   ✅ Featured Products
+   =========================== */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* flexible grid */
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  justify-items: center;  /* center cards within grid */
+}
+.featured-card {
+  border: 2px solid var(--border);
+  padding: 1rem;
+  border-radius: 12px;
+  background: #fffdf5;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 320px;        /* consistent card sizing */
+  text-align: center;      /* center text inside card */
+}
+.featured-card h3 {
+  margin-top: 0.5rem;
+}
+
+/* ===========================
+   ✅ Product + Featured Grid
+   Shared system for:
+   - products.html (all products)
+   - home.html (featured items)
+   =========================== */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 18px;
 }
+
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
-  display: flex; flex-direction: column;
-}
-.card-media img { width: 100%; height: 220px; object-fit: cover; display: block; }
-.card-body { padding: 14px; }
-.card-body h3 { margin: 0 0 8px; font-size: 1.1rem; }
-.card-actions { margin-top: 10px; }
-
-.product-detail { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; padding: 24px 0 48px; }
-.product-detail .media img { width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
-.product-detail .info h1 { margin-top: 0; }
-@media (max-width: 900px) {
-  .product-detail { grid-template-columns: 1fr; }
+  display: flex;
+  flex-direction: column;
+  text-align: center;  /* ✅ works for both featured + product listing */
 }
 
+.card-media img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-body {
+  padding: 14px;
+}
+
+.card-body h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.card-actions { 
+  margin-top: 10px; 
+}
+
+/* ===========================
+   ✅ Product Detail Layout
+   =========================== */
+.product-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two equal columns */
+  gap: 2rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+.product-detail .media img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: block;
+  margin: 0 auto;
+}
+
+.product-detail .info h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.product-detail .info .desc {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+.product-detail .info .price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* Options (radio buttons) */
+#product-options label {
+  display: block;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+#product-options input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+/* Responsive: stack columns on mobile */
+@media (max-width: 768px) {
+  .product-detail {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ===========================
+   ✅ Utilities
+   =========================== */
 .price { font-weight: 700; }
 .muted { color: var(--muted); }
 .small { font-size: 0.9rem; }
@@ -81,19 +307,33 @@ body {
 .btn {
   display: inline-block;
   padding: 10px 16px;
-  border: 0; border-radius: 12px;
-  font-weight: 700; text-decoration: none; cursor: pointer;
+  border: 0;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
 }
 .btn-primary {
-  background: var(--primary); color: var(--primary-contrast);
+  background: var(--primary);
+  color: var(--primary-contrast);
 }
-.btn[disabled], .btn[aria-disabled="true"] {
-  opacity: 0.6; cursor: not-allowed;
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
+/* ===========================
+   ✅ Alerts / Banners
+   =========================== */
 .banner {
-  padding: 10px 12px; border-radius: 10px; margin: 12px 0;
-  border: 1px solid var(--border); background: #fff7ee;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin: 12px 0;
+  border: 1px solid var(--border);
+  background: #fff7ee;
 }
 
 .desc { color: var(--muted); }
+
+
