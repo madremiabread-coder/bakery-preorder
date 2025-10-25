@@ -1,16 +1,49 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="p-6">
-  <!-- Container where product details will be rendered -->
-  <div id="product-detail">
-    <p>Loading product...</p>
+<div class="container">
+  <!-- ===============================
+       ✅ Product Detail Layout
+       Split into 2 columns:
+       - Left: product image
+       - Right: product info, options, button
+       =============================== -->
+  <div id="product-detail" class="product-detail">
+
+    <!-- Left side: product image -->
+    <div class="media">
+      <!-- Placeholder until JS replaces it -->
+      <p>Loading product image...</p>
+    </div>
+
+    <!-- Right side: product info -->
+    <div class="info">
+      <!-- Title (filled by JS) -->
+      <h1>Loading product...</h1>
+
+      <!-- Description (replaced by JS) -->
+      <p class="desc">Please wait while we fetch product details.</p>
+
+      <!-- Price (replaced by JS) -->
+      <p class="price"></p>
+
+      <!-- ✅ Options (like size/flavor) will be injected here by JS -->
+      <div id="product-options"></div>
+
+      <!-- ✅ Add-to-cart button 
+           - Starts disabled
+           - JS will enable & bind onclick -->
+      <button id="add-to-cart" class="btn btn-primary" disabled>
+        Add to Basket 🧺
+      </button>
+    </div>
   </div>
 </div>
 
-<!-- Attach the product_detail.js file -->
+<!-- ✅ Attach product_detail.js (fetches product + renders it here) -->
 <script src="{{ url_for('static', filename='product_detail.js') }}"></script>
 {% endblock %}
+
 
 
 

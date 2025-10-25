@@ -53,3 +53,15 @@ with app.app_context():
     for p in products:
         print(dict(p))
 <python>
+
+*********************
+1. Activating
+
+Whenever you open VS Code or Terminal to work on this project:
+
+source venv/bin/activate
+
+***********************
+locally run with: python app.py
+* Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+

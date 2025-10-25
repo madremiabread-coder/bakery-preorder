@@ -1,13 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="p-6">
-  <h1 class="text-3xl font-bold mb-6">Your Basket</h1>
-  <div id="cart-container">
-    <p>Loading Basket</p>
-  </div>
-</div>
+  <!-- 🔹 Cart Page Container -->
+  <section class="section container">
+    <!-- Page Title -->
+    <h1>Your Basket</h1>
 
-<!-- ✅ Load external JS instead of inline -->
-<script src="{{ url_for('static', filename='cart.js') }}"></script>
+    <!-- Cart Items will render here dynamically via JS -->
+    <div id="cart-container">
+      <p>Loading your basket...</p>
+    </div>
+  </section>
+
+  <!-- 🔹 External JavaScript for cart logic -->
+  <!-- (keeps HTML clean; all cart logic lives in /static/cart.js) -->
+  <script src="{{ url_for('static', filename='cart.js') }}"></script>
 {% endblock %}
+

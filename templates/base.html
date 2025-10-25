@@ -3,36 +3,55 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ✅ Page Title -->
+  <!-- Uses Jinja2: falls back to "Madre Mia! Bread" if no title is passed -->
   <title>{{ title or "Madre Mia! Bread" }}</title>
   <meta name="description" content="Small-batch bakery preorders. Limited weekly bakes—reserve early!" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+  <!-- ✅ Link to centralized global stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v=2.0">
 </head>
 <body>
+  <!-- ✅ Accessibility helper -->
+  <!-- Lets keyboard/screen reader users skip header directly to main content -->
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ✅ Sticky Site Header -->
+  <!-- Brand on left, nav links on right -->
   <header class="site-header">
-    <div class="container">
+    <div class="site-header-inner">
+      <!-- Brand / Logo -->
       <a href="{{ url_for('home') }}" class="brand">Madre Mia! Bread</a>
+
+      <!-- Primary Navigation -->
       <nav aria-label="Primary">
         <ul class="nav">
           <li><a href="{{ url_for('home') }}">Home</a></li>
           <li><a href="{{ url_for('products') }}">Products</a></li>
-          <li><a href="{{ url_for('cart') }}">Basket 🧺</a></li></a></li> <!-- ✅ Added cart link -->
+          <li><a href="{{ url_for('cart') }}">Basket 🧺</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
+  <!-- ✅ Main Page Content -->
+  <!-- Each page (home, products, cart, etc.) injects its content here -->
   <main id="main" class="container">
     {% block content %}
       {{ content|safe if content else "" }}
     {% endblock %}
   </main>
 
+  <!-- ✅ Global Footer -->
   <footer class="site-footer">
-    <div class="container">
+    <div class="site-footer-inner">
       <p>&copy; {{ 2025 }} Madre Mia! Bread · Small-batch, big heart.</p>
     </div>
   </footer>
 </body>
 </html>
+
+
+
 

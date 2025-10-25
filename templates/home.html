@@ -1,14 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-  <h1>Welcome to Our Sourdough Shop</h1>
-  <p>Freshly baked sourdough breads and more. Check out our featured items:</p>
 
-  <div id="featured-list" class="featured-grid">
-    <!-- Featured products will load dynamically -->
+<!-- ✅ Hero Section (full-width background image with overlay text) -->
+<section class="hero-banner">
+  <div class="hero-overlay">
+    <h1>Welcome to Madre Mia! Bread</h1>
+    <p>Small-batch bakes. Big heart. Preorder today!</p>
+  </div>
+</section>
+
+<!-- ✅ Featured Items Section -->
+<div class="container">
+  <h2 style="text-align: center; margin-top: 2rem;">Featured Items</h2>
+
+  <!-- ✅ Use global grid + card system -->
+  <div id="featured-list" class="grid">
+    <!-- Featured products will load dynamically here via JS -->
   </div>
 
-  <p><a href="/products">See all products →</a></p>
+  <!-- Link to all products, centered -->
+  <p style="text-align: center; margin-top: 1rem;">
+    <a href="/products">See all products →</a>
+  </p>
 </div>
 
 <script>
@@ -21,25 +34,27 @@
       }
 
       const products = await res.json();
-      const featured = products.slice(0, 2); // take first two items as featured
+      const featured = products.slice(0, 2); // ✅ take first two items as featured
 
       const listContainer = document.querySelector("#featured-list");
       listContainer.innerHTML = "";
 
       featured.forEach(p => {
         const card = document.createElement("div");
-        card.classList.add("featured-card");
+        card.classList.add("card"); // ✅ Use global card styling
 
-        // Add product image if it exists
+        // Optional product image
         const imageTag = p.image_url
-          ? `<img src="${p.image_url}" alt="${p.name}" style="max-width:100%; height:auto; border-radius:8px; margin-bottom:0.5rem;">`
+          ? `<div class="card-media"><img src="${p.image_url}" alt="${p.name}"></div>`
           : "";
 
         card.innerHTML = `
           ${imageTag}
-          <h3><a href="/product/${p.id}">${p.name}</a></h3>
-          <p>${p.description || ""}</p>
-          <p><strong>Price:</strong> $${(p.price_cents / 100).toFixed(2)}</p>
+          <div class="card-body">
+            <h3><a href="/product/${p.id}">${p.name}</a></h3>
+            <p>${p.description || ""}</p>
+            <p class="price">$${(p.price_cents / 100).toFixed(2)}</p>
+          </div>
         `;
 
         listContainer.appendChild(card);
@@ -51,24 +66,9 @@
   });
 </script>
 
-<style>
-  .featured-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1rem;
-  }
-  .featured-card {
-    border: 2px solid #ccc;
-    padding: 1rem;
-    border-radius: 10px;
-    background: #fffdf5;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  }
-  .featured-card h3 {
-    margin-top: 0;
-  }
-</style>
 {% endblock %}
+
+
+
 
 
