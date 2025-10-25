@@ -10,16 +10,17 @@
    ✅ Theme Variables
    =========================== */
 :root {
-  --bg: #FDFBF7;             /* warm cream background */
-  --text: #45392C;           /* dark brown text */
-  --muted: #6A6F5C;          /* soft greenish-gray */
-  --primary: #486464;        /* teal primary */
-  --primary-contrast: #fff;  /* white for contrast */
-  --card: #ffffff;           /* white card background */
-  --border: #e0ded9;         /* light beige border */
-  --shadow: 0 8px 20px rgba(69, 57, 44, 0.12); /* soft shadow */
-  --radius: 14px;            /* rounded corners */
+  --bg: #FFFDF7;             /* light festive neutral */
+  --text: #E4572E;           /* deep grounding black-brown */
+  --muted: #bc317e;          /* teal accent */
+  --primary: #E4572E;        /* bold fiesta red-orange */
+  --primary-contrast: #fff;
+  --card: #3C6E71;           /* sunshine yellow */
+  --border: #8ea58b;         /* light peach */
+  --shadow: 0 10px 22px rgba(228, 87, 46, 0.15);
+  --radius: 16px;
 }
+
 
 /* ===========================
    ✅ Base Reset
